@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AI Chat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="bg-black text-white" style='font-family: Inter, "Noto Sans", sans-serif;'>
+    <div class="flex flex-col min-h-screen">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-gray-800 px-10 py-3">
+            <div class="flex items-center gap-4">
+                <h2 class="text-lg font-bold text-[#A3FF00]">Chatbot AI</h2>
+            </div>
+        </header>
+        <main class="flex-grow flex items-center justify-center">
+            <div class="w-full max-w-md p-8 space-y-6">
+                <h2 class="text-3xl font-bold text-center text-white">Welcome Back</h2>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="text-center p-2 rounded-md bg-red-500/20 text-red-400 text-sm">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <form class="space-y-6" action="{{ url_for('login') }}" method="POST">
+                    <div>
+                        <label class="text-sm font-medium text-gray-300 block mb-2">Email Address</label>
+                        <input name="email" type="email" placeholder="e.g. user@example.com" required
+                            class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#A3FF00]" />
+                    </div>
+
+                    <div>
+                        <label class="text-sm font-medium text-gray-300 block mb-2">Password</label>
+                        <input name="password" type="password" placeholder="Your secure password" required
+                            class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#A3FF00]" />
+                    </div>
+
+                    <button type="submit"
+                        class="w-full h-12 px-4 rounded-lg bg-[#A3FF00] text-black text-sm font-bold hover:bg-[#A3FF00]/80 transition-colors">
+                        Sign In
+                    </button>
+
+                    <div class="text-center text-sm text-gray-400">
+                        <p>Don't have an account? <a href="{{ url_for('signup') }}"
+                                class="underline text-[#A3FF00] hover:text-white">Create one</a></p>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
